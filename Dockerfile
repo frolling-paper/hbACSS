@@ -41,6 +41,9 @@ ENV PATH ${PYTHON_LIBRARY_PATH}/bin:${PATH}
 # which relies on certain code that doesn't work in container's default shell.
 RUN ln -sf bash /bin/sh
 
+RUN echo "deb http://archive.debian.org/debian stretch main" > /etc/apt/sources.list
+RUN echo "deb http://archive.debian.org/debian-security stretch/updates main" >> etc/apt/sources.list
+
 # Install apt dependencies
 # Put apt dependencies here that are needed by all build paths
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -57,6 +60,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     openssl \ 
     sudo 
 
+RUN pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
 # Setup virtualenv
 RUN pip install --upgrade pip virtualenv
 RUN python -m virtualenv ${PYTHON_LIBRARY_PATH}
