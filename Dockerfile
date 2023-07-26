@@ -105,7 +105,8 @@ RUN apt-get install -y --no-install-recommends \
 # Downloads rust and sets it up
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain nightly
 ENV PATH "/root/.cargo/bin:${PATH}"
-
+ENV HTTP_PROXY http://192.168.144.1:10811
+ENV HTTPS_PROXY http://192.168.144.1:10811
 
 # Install NTL
 WORKDIR /
